@@ -1,3 +1,3 @@
-ECLIPSE_BASE_DIR='/home/scott/apps/eclipse_kepler'
+ECLIPSE_BASE_DIR='[path to eclipse]'
 
 
