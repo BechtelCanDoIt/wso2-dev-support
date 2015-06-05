@@ -2,11 +2,11 @@
 
 echo "==============================  OS Util Downloads  ============================="
 echo " We are going to execute the following script to ensure you have these installed."
-echo " This will probably ask for your password. 
+echo " This will probably ask for your password." 
 echo ""
-cat ~getOsUtils.sh
+cat ./~getOsUtils.sh
 echo ""
-~getOsUtils.sh
+./~getOsUtils.sh
 echo "================================================================================"
 
 echo "============================  GitHub Util Downloads  ==========================="
@@ -41,7 +41,7 @@ touch .installed
 
 echo ""
 echo "=================================================================================="
-echo " All done with installations.
+echo " All done with installations."
 echo "=================================================================================="
 
 

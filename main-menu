@@ -7,7 +7,9 @@ if [ ! -f ./github/.installed ];
       cd ./github
       ./install.sh
       cd $cwd
+      read -rsp $'Press enter to continue...\n'
 fi
+
 
 notDevd(){
    echo "This option has not been developed yet."
