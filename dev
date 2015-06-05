@@ -1,0 +1,24 @@
+#!/bin/bash
+
+cwd=$(pwd)
+
+wellFormedGroup(){
+   clear
+   echo -n "Input path: "
+   read FPATH
+   FOUT="/tmp/o.txt"
+   #TODO added parameter checking
+   
+  find "$FPATH" -type f -name "*.xml" -printf "%k KB %p\n" | sort -nr |  while read -r i; do
+    #echo "$i"
+    xmlstarlet val -w "$i" | tee -a "$FOUT"
+  done
+
+
+   echo ""  && echo "" && echo ""
+   read -rsp $'Press enter to continue...\n'
+
+}
+
+
+wellFormedGroup
