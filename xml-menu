@@ -1,0 +1,131 @@
+#!/bin/bash
+
+cwd=$(pwd)
+
+notDevd(){
+   echo "Not developed yet"
+   echo ""  && echo "" && echo ""
+   read -rsp $'Press enter to continue...\n'
+}
+
+pretty(){
+   clear
+   echo -n "Input path/file: "
+   read FIN
+   echo -n "Output path/file: "
+   read FOUT
+   xmllint --format --recover $FIN | tee $FOUT
+   echo ""  && echo "" && echo ""
+   read -rsp $'Press enter to continue...\n'
+}
+
+unpretty(){
+   clear
+   echo -n "Input path/file: "
+   read FIN
+   echo -n "Output path/file: "
+   read FOUT
+   #TODO added parameter checking
+   xmllint --noblanks --recover $FIN | tee $FOUT
+   echo ""  && echo "" && echo ""
+   read -rsp $'Press enter to continue...\n'
+}
+
+wellFormedGroup(){
+   clear
+   echo -n "Input path: "
+   read FPATH
+   echo -n "Output path/file: "
+   read FOUT
+   #TODO added parameter checking
+   
+   if [ -f $FOUT ]
+      then
+         rm $FOUT
+         touch $FOUT
+   fi
+
+   for f in $(find $FPATH -type f -name "*.xml" -print0 | while IFS= read -r -d '' file;); do
+      echo "$f"
+      #xmlstarlet val -w $f
+      #xmlstarlet val -w -b "$f" | tee $FOUT
+   done
+   #find $FPATH -type f -name '*.xml' | xmlNotWellFormed
+
+   echo ""  && echo "" && echo ""
+   read -rsp $'Press enter to continue...\n'
+
+}
+
+
+xmlFileWellFormed(){
+   clear
+   echo -n "Input path/file: "
+   read FIN
+   #TODO added parameter checking
+   xmlstarlet val -w $FIN 
+   echo ""  && echo "" && echo ""
+   read -rsp $'Press enter to continue...\n'
+}
+
+xmlValid(){
+   clear
+   echo -n "Input path/file of XSD: "
+   read FIN_XSD
+   echo -n "Input path/file of XML: "
+   read FIN_XML
+   #TODO added parameter checking
+   xmlstatlet val --xsd $FIN_XSD $FIN_XML 
+   echo ""  && echo "" && echo ""
+   read -rsp $'Press enter to continue...\n'
+
+}
+
+listNS(){
+  notDevd
+}
+
+
+while :
+do
+    cd $cwd
+    clear
+    cat<<EOF
+  ___                                        __ _ __     _           __    _  _          
+   | |_  _    | | | _|_ o __  _ _|_ _    | |(_ / \ _)   | \ _       (_    |_)|_) _  ___|_
+   | | |(/_   |_| |  |_ | |||(_| |_(/_   |^|__)\_//__   |_/(/_\_/   __)|_||  |  (_) |  |_
+
+      ██╗  ██╗███╗   ███╗██╗         ███╗   ███╗███████╗███╗   ██╗██╗   ██╗
+      ╚██╗██╔╝████╗ ████║██║         ████╗ ████║██╔════╝████╗  ██║██║   ██║
+       ╚███╔╝ ██╔████╔██║██║         ██╔████╔██║█████╗  ██╔██╗ ██║██║   ██║
+       ██╔██╗ ██║╚██╔╝██║██║         ██║╚██╔╝██║██╔══╝  ██║╚██╗██║██║   ██║
+      ██╔╝ ██╗██║ ╚═╝ ██║███████╗    ██║ ╚═╝ ██║███████╗██║ ╚████║╚██████╔╝
+      ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝    ╚═╝     ╚═╝╚══════╝╚═╝  ╚═══╝ ╚═════╝
+ ===============================================================================================================================================
+
+                            +------------------------------------+
+                            |                           (R)eturn |
+                            +------------------------------------+
+                            | Please enter your choice:          |
+                            |                                    |
+                            | (P)retty XML                       |
+                            | (U)n-Pretty XML                    |
+                            | Are project files (W)ell Formed?   |
+                            | Is (o)ne file Well Formed?         |
+                            | Print (n)amespace string to import |
+                            |                                    |
+                            +------------------------------------+
+EOF
+    read -n1 -s
+    case "$REPLY" in
+    "p" | "P")  pretty             ;;
+    "u" | "U")  unpretty           ;;
+    "w" | "W")  wellFormedGroup    ;;
+    "o" | "O")  wellformed         ;;
+    "n" | "N")  listNS             ;;
+    "r" | "R")  exit               ;;
+     * )  echo "invalid option"    ;;
+    esac
+    sleep 1
+done
+

@@ -1,0 +1,104 @@
+#!/bin/bash
+
+cwd=$(pwd)
+
+if [ ! -f ./github/.installed ];
+   then
+      cd ./github
+      ./install.sh
+      cd $cwd
+fi
+
+notDevd(){
+   echo "This option has not been developed yet."
+   read -rsp $'Press enter to continue...\n'
+}
+
+bashStudio(){
+   ./github/tools/bashStudio/bashStudio.sh
+}
+
+createPom(){
+  notDevd
+}
+
+pom-version-update(){
+   #Note: This utility needs to be updated to provide 
+   #parameter input for what the working directory should be.
+   clear
+   cd $cwd/github/tools/pom-version-update
+   pwd
+   ls
+   echo "Example: ???"
+   echo "You can't use this command from the menu."
+   read -rsp $'Press enter to continue...\n'
+}
+
+wso2-proxy-conflict-finder(){
+   #Note: This utility needs to be updated to provide 
+   #parameters for the new and existing CAR file folders.
+   clear
+   cd $cwd/github/tools/wso2-proxy-conflict-finder
+   pwd
+   ls
+   echo "Example: ???"
+   echo "You can't use this command from the menu."
+   read -rsp $'Press enter to continue...\n'
+}
+
+xmlMenu(){
+   ./xml-menu
+}
+
+customMenu(){
+  ./custom-menu
+}
+
+while :
+do
+    cd $cwd
+    clear
+    cat<<EOF
+  ___                                        __ _ __     _           __    _  _          
+   | |_  _    | | | _|_ o __  _ _|_ _    | |(_ / \ _)   | \ _       (_    |_)|_) _  ___|_
+   | | |(/_   |_| |  |_ | |||(_| |_(/_   |^|__)\_//__   |_/(/_\_/   __)|_||  |  (_) |  |_
+
+     ███╗   ███╗ █████╗ ██╗███╗   ██╗    ███╗   ███╗███████╗███╗   ██╗██╗   ██╗
+     ████╗ ████║██╔══██╗██║████╗  ██║    ████╗ ████║██╔════╝████╗  ██║██║   ██║
+     ██╔████╔██║███████║██║██╔██╗ ██║    ██╔████╔██║█████╗  ██╔██╗ ██║██║   ██║
+     ██║╚██╔╝██║██╔══██║██║██║╚██╗██║    ██║╚██╔╝██║██╔══╝  ██║╚██╗██║██║   ██║
+     ██║ ╚═╝ ██║██║  ██║██║██║ ╚████║    ██║ ╚═╝ ██║███████╗██║ ╚████║╚██████╔╝
+     ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝    ╚═╝     ╚═╝╚══════╝╚═╝  ╚═══╝ ╚═════╝     
+ ===============================================================================================================================================
+
+                            +------------------------------+
+                            |                       (Q)uit |
+                            +------------------------------+
+                            | Please enter your choice:    |
+                            |                              |
+                            | (B)ashStudio                 |
+                            | (C)reate POM File            |
+                            | Pom (V)ersion Update         |
+                            | WSO2 Proxy Conflict (F)inder |
+                            |                              |
+                            | (X)ML/XSD/XSLT Utils Menu    |
+                            | Custom (U)tils Menu          |
+                            |                              |
+                            +------------------------------+
+EOF
+
+    read -n1 -s
+    case "$REPLY" in
+    "b" | "B")  bashStudio                  ;;
+    "c" | "C")  createPom                   ;;
+    "v" | "V")  pom-version-update          ;;
+    "f" | "F")  wso2-proxy-conflict-finder  ;;
+    "x" | "X")  xmlMenu                     ;;
+    "u" | "U")  customMenu                  ;;
+    "Q")  exit                              ;;
+    "q")  echo "case sensitive!!"           ;; 
+     * )  echo "invalid option"             ;;
+    esac
+    sleep 1
+done
+
