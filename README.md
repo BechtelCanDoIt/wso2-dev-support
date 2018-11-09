@@ -1,7 +1,3 @@
-  ___                                        __ _ __     _           __    _  _          
-   | |_  _    | | | _|_ o __  _ _|_ _    | |(_ / \ _)   | \ _       (_    |_)|_) _  ___|_
-   | | |(/_   |_| |  |_ | |||(_| |_(/_   |^|__)\_//__   |_/(/_\_/   __)|_||  |  (_) |  |_
-
 
 This glob of utilities came out of a conversation I had at work that started as, 
 "Wouldn't it be nice if there were utilities for our common pain points." 
